@@ -39,7 +39,7 @@ hl.window_rule({match = {class = "^(nm-connection-editor)$" },               siz
 hl.window_rule({match = {class = "^(nm-connection-editor)$" },               center = true})
 hl.window_rule({match = {class = ".*plasmawindowed.*" },                     float = true})
 hl.window_rule({match = {class = "kcm_.*" },                                  float = true})
-hl.window_rule({match = {class = ".*bluedevilwizard" },                      float = true})
+hl.window_rule({match = {class = "blueman-manager" },                      float = true})
 hl.window_rule({match = {title = ".*Welcome" },                              float = true})
 hl.window_rule({match = {title = "^(illogical-impulse Settings)$" },         float = true})
 hl.window_rule({match = {title = ".*Shell conflicts.*" },                    float = true})

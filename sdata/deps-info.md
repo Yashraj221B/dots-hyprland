@@ -59,12 +59,12 @@ Tips:
 - `adw-gtk-theme-git`
   - [source](https://github.com/lassekongo83/adw-gtk3)
   - Used in Quickshell config.
-- `breeze`
+- ~~`breeze`~~
   - Used in kdeglobals config.
-- `breeze-plus`
+- ~~`breeze-plus`~~
   - [source](https://github.com/mjkim0727/breeze-plus)
   - Used in kde-material-you-colors config.
-- `darkly-bin`
+- ~~`darkly-bin`~~ (REMOVED)
   - `darkly` is supposed to be set as the theme for Qt apps, just have not figured out how to properly set it yet.
 - `eza`
   - Used in Fish config: `alias ls 'eza --icons'`
@@ -104,27 +104,27 @@ Tips:
 - `wl-clipboard`
   - Surely needed.
 
-## illogical-impulse-kde
-- `bluedevil`
-  - Provide command `kcmshell6 kcm_bluetooth` used by Quickshell bluetooth functionality.
+## illogical-impulse-notkde
+- ~~`bluedevil`~~ `blueman`
+  - I need it.
 - `gnome-keyring`
   - Provide executable `gnome-keyring-daemon`, used in Hyprland and Quickshell config.
 - `networkmanager`
   - Basic component.
-- `plasma-nm`
+- ~~`plasma-nm`~~
   - Provide command `kcmshell6 kcm_networkmanagement` used by Quickshell network functionality.
-- `polkit-kde-agent`
+- ~~`polkit-kde-agent`~~`polkit-gnome`
   - Basic component.
-- `dolphin`
+- ~~`dolphin`~~ `thunar`
   - Used in Hyprland and Quickshell config.
-- `systemsettings`
+- ~~`systemsettings`~~
   - Used in Hyprland `keybinds.conf`.
 
 
 ## illogical-impulse-portal
 - `xdg-desktop-portal`
   - Basic component.
-- `xdg-desktop-portal-kde`
+- ~~`xdg-desktop-portal-kde`~~
   - Basic component.
 - `xdg-desktop-portal-gtk`
   - Basic component.
@@ -217,7 +217,7 @@ Extra dependencies.
 - `qt6-virtualkeyboard`
 - `qt6-wayland`
 - `kirigami`
-- `kdialog`
+- ~~`kdialog`~~ `zenity`
 - `syntax-highlighting`
 - `vulkan-headers`
 - `libdrm`

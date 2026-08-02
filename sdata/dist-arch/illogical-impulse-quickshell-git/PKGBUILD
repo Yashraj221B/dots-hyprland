@@ -39,7 +39,7 @@ depends=(
   qt6-virtualkeyboard
   qt6-wayland
   kirigami
-  kdialog
+  zenity # kdialog/
   syntax-highlighting
 )
 makedepends=(

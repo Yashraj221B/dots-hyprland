@@ -2,7 +2,6 @@
 if status is-interactive
     # No greeting
     set fish_greeting
-    set -g fish_prompt_pwd_dir_length 1
 
     # Use starship
     function starship_transient_prompt_func

@@ -63,7 +63,6 @@ case "${SKIP_HYPRLAND}" in
     done
     for i in hypridle.conf ; do
       install_file__auto_backup "dots/.config/hypr/$i" "${XDG_CONFIG_HOME}/hypr/$i"
-      fi
     done
 
     install_dir__ignore_existing "dots/.config/hypr/custom" "${XDG_CONFIG_HOME}/hypr/custom"

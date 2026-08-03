@@ -15,18 +15,23 @@ import Quickshell.Services.Mpris
 Item { // Player instance
     id: root
     required property MprisPlayer player
-    property var artUrl: player?.trackArtUrl
+    property var artUrl: player?.trackArtUrl || ""
     property string artDownloadLocation: Directories.coverArt
     property string artFileName: Qt.md5(artUrl)
     property string artFilePath: `${artDownloadLocation}/${artFileName}`
     property color artDominantColor: ColorUtils.mix((colorQuantizer?.colors[0] ?? Appearance.colors.colPrimary), Appearance.colors.colPrimaryContainer, 0.8) || Appearance.m3colors.m3secondaryContainer
     property bool downloaded: false
+    property bool seeking: false
+    property real seekValue: 0
+    property real cachedLength: 0
     property list<real> visualizerPoints: []
     property real maxVisualizerValue: 1000 // Max value in the data points
     property int visualizerSmoothing: 2 // Number of points to average for smoothing
     property real radius
 
     property string displayedArtFilePath: root.downloaded ? Qt.resolvedUrl(artFilePath) : ""
+    readonly property real displayLength: root.cachedLength > 0 ? root.cachedLength : (root.player?.length ?? 0)
+    readonly property real displayPosition: root.seeking ? (root.seekValue * root.displayLength) : (root.player?.position ?? 0)
 
     component TrackChangeButton: RippleButton {
         implicitWidth: 24
@@ -51,16 +56,50 @@ Item { // Player instance
     }
 
     Timer { // Force update for revision
-        running: root.player?.playbackState == MprisPlaybackState.Playing
+        running: root.player?.playbackState == MprisPlaybackState.Playing && !root.seeking
         interval: Config.options.resources.updateInterval
         repeat: true
         onTriggered: {
-            root.player.positionChanged()
+            if (root.player) {
+                root.player.positionChanged()
+            }
         }
     }
 
+    function syncCachedLength(force = false) {
+        const length = root.player?.length ?? 0;
+        if (length <= 0)
+            return;
+
+        if (force || root.cachedLength <= 0 || length >= root.cachedLength) {
+            root.cachedLength = length;
+        }
+    }
+
+    Connections {
+        target: root.player
+
+        function onLengthChanged() {
+            root.syncCachedLength();
+            if (!root.seeking && root.player?.length > 0) {
+                root.seekValue = root.player.position / root.player.length;
+            }
+        }
+
+        function onPostTrackChanged() {
+            root.syncCachedLength(true);
+            root.seekValue = root.player?.length > 0 ? root.player.position / root.player.length : 0;
+            root.seeking = false;
+        }
+    }
+
+    Component.onCompleted: {
+        root.syncCachedLength(true);
+        root.seekValue = root.player?.length > 0 ? root.player.position / root.player.length : 0;
+    }
+
     onArtFilePathChanged: {
-        if (root.artUrl.length == 0) {
+        if ((root.artUrl?.length ?? 0) == 0) {
             root.artDominantColor = Appearance.m3colors.m3secondaryContainer
             return;
         }
@@ -201,7 +240,7 @@ Item { // Player instance
                     font.pixelSize: Appearance.font.pixelSize.smaller
                     color: blendedColors.colSubtext
                     elide: Text.ElideRight
-                    text: root.player?.trackArtist
+                    text: root.player?.trackArtist || ""
                     animateChange: true
                     animationDistanceX: 6
                     animationDistanceY: 0
@@ -219,7 +258,7 @@ Item { // Player instance
                         font.pixelSize: Appearance.font.pixelSize.small
                         color: blendedColors.colSubtext
                         elide: Text.ElideRight
-                        text: `${StringUtils.friendlyTimeForSeconds(root.player?.position)} / ${StringUtils.friendlyTimeForSeconds(root.player?.length)}`
+                        text: `${StringUtils.friendlyTimeForSeconds(root.displayPosition)} / ${StringUtils.friendlyTimeForSeconds(root.displayLength)}`
                     }
                     RowLayout {
                         id: sliderRow
@@ -246,9 +285,20 @@ Item { // Player instance
                                     highlightColor: blendedColors.colPrimary
                                     trackColor: blendedColors.colSecondaryContainer
                                     handleColor: blendedColors.colPrimary
-                                    value: root.player?.position / root.player?.length
+                                    value: root.seekValue
+                                    onPressedChanged: {
+                                        root.seeking = pressed;
+                                        if (!pressed && root.player?.length > 0) {
+                                            root.syncCachedLength();
+                                            root.seekValue = root.cachedLength > 0 ? root.player.position / root.cachedLength : 0;
+                                        }
+                                    }
                                     onMoved: {
-                                        root.player.position = value * root.player.length;
+                                        root.seekValue = value;
+                                        root.syncCachedLength();
+                                        if (root.cachedLength > 0) {
+                                            root.player.position = Math.max(0, Math.min(1, value)) * root.cachedLength;
+                                        }
                                     }
                                 }
                             }
@@ -262,10 +312,10 @@ Item { // Player instance
                                 }
                                 active: !(root.player?.canSeek ?? false)
                                 sourceComponent: StyledProgressBar { 
-                                    wavy: root.player?.isPlaying
+                                    wavy: root.player?.isPlaying ?? false
                                     highlightColor: blendedColors.colPrimary
                                     trackColor: blendedColors.colSecondaryContainer
-                                    value: root.player?.position / root.player?.length
+                                    value: root.displayLength > 0 ? root.displayPosition / root.displayLength : 0
                                 }
                             }
 

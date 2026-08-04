@@ -14,6 +14,7 @@ depends=(
   # plasma-nm
   polkit-gnome # polkit-kde-agent
   gedit
-  thunar # dolphin
-  # systemsettings
+  thunar
+  fastfetch
+  zoxide
 )

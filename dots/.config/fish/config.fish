@@ -10,6 +10,8 @@ if status is-interactive
     if test "$TERM" != "linux"
         starship init fish | source
         enable_transience
+        command -v zoxide &> /dev/null && zoxide init fish --cmd cd | source
+        fastfetch
     end
     
     # Colors
@@ -22,6 +24,8 @@ if status is-interactive
     alias clear "printf '\033[2J\033[3J\033[1;1H'"
     alias celar "printf '\033[2J\033[3J\033[1;1H'"
     alias claer "printf '\033[2J\033[3J\033[1;1H'"
+    alias cls "printf '\033[2J\033[3J\033[1;1H'"
+    alias c "printf '\033[2J\033[3J\033[1;1H'"
     alias pamcan pacman
     alias q 'qs -c ii'
     if test "$TERM" != "linux"

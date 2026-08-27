@@ -1,0 +1,20 @@
+groups=(illogical-impulse)
+pkgname=illogical-impulse-notkde
+pkgver=1.0
+pkgrel=3
+pkgdesc='Illogical Impulse notKDE Dependencies'
+arch=(any)
+license=(None)
+depends=(
+  blueman
+  bluez
+  bluez-utils  
+  gnome-keyring
+  networkmanager
+  # plasma-nm
+  polkit-gnome # polkit-kde-agent
+  gedit
+  thunar
+  fastfetch
+  zoxide
+)

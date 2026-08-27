@@ -111,16 +111,11 @@ Item { // Bar content region
         BarGroup {
             id: leftCenterGroup
             anchors.verticalCenter: parent.verticalCenter
-            implicitWidth: root.centerSideModuleWidth
+            // implicitWidth: root.centerSideModuleWidth
 
             Resources {
                 alwaysShowAllResources: root.useShortenedForm === 2
                 Layout.fillWidth: root.useShortenedForm === 2
-            }
-
-            Media {
-                visible: root.useShortenedForm < 2
-                Layout.fillWidth: true
             }
         }
 
@@ -131,7 +126,7 @@ Item { // Bar content region
         BarGroup {
             id: middleCenterGroup
             anchors.verticalCenter: parent.verticalCenter
-            padding: workspacesWidget.widgetPadding
+            padding: 12
 
             Workspaces {
                 id: workspacesWidget

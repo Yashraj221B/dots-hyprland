@@ -90,7 +90,7 @@ install-local-pkgbuild() {
 }
 
 # Install core dependencies from the meta-packages
-metapkgs=(./sdata/dist-arch/illogical-impulse-{audio,backlight,basic,fonts-themes,kde,portal,python,screencapture,toolkit,widgets})
+metapkgs=(./sdata/dist-arch/illogical-impulse-{audio,backlight,basic,fonts-themes,notkde,portal,python,screencapture,toolkit,widgets})
 metapkgs+=(./sdata/dist-arch/illogical-impulse-hyprland)
 metapkgs+=(./sdata/dist-arch/illogical-impulse-microtex-git)
 metapkgs+=(./sdata/dist-arch/illogical-impulse-quickshell-git)
@@ -123,23 +123,3 @@ install-dinit-service-packages(){
 }
 showfun install-dinit-service-packages
 v install-dinit-service-packages
-
-## Optional dependencies
-if pacman -Qs ^plasma-browser-integration$ ;then SKIP_PLASMAINTG=true;fi
-case $SKIP_PLASMAINTG in
-  true) true;;
-  *)
-    if $ask;then
-      echo -e "${STY_YELLOW}[$0]: NOTE: The size of \"plasma-browser-integration\" is ~600 KiB, but if you don't yet have KDE on your system it'll pull an extra ~600MiB of packages.${STY_RST}"
-      echo -e "${STY_YELLOW}It is needed if you want playtime of media in Firefox to be shown on the music controls widget.${STY_RST}"
-      echo -e "${STY_YELLOW}Install it? [y/N]${STY_RST}"
-      read -p "====> " p
-    else
-      p=y
-    fi
-    case $p in
-      y) x sudo pacman -S --needed --noconfirm plasma-browser-integration ;;
-      *) echo "Ok, won't install"
-    esac
-    ;;
-esac

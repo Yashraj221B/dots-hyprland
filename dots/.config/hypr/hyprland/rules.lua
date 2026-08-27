@@ -38,15 +38,19 @@ hl.window_rule({match = {class = "^(nm-connection-editor)$" },               flo
 hl.window_rule({match = {class = "^(nm-connection-editor)$" },               size = {"(monitor_w*0.45)", "(monitor_h*0.45)"} })
 hl.window_rule({match = {class = "^(nm-connection-editor)$" },               center = true})
 hl.window_rule({match = {class = ".*plasmawindowed.*" },                     float = true})
-hl.window_rule({match = {class = "kcm_.*" },                                  float = true})
-hl.window_rule({match = {class = ".*bluedevilwizard" },                      float = true})
+hl.window_rule({match = {class = "kcm_.*" },                                 float = true})
+hl.window_rule({match = {class = "blueman-manager" },                        float = true})
+hl.window_rule({match = {class = "kitty", title = "nmtui" },                 float = true })
 hl.window_rule({match = {title = ".*Welcome" },                              float = true})
 hl.window_rule({match = {title = "^(illogical-impulse Settings)$" },         float = true})
 hl.window_rule({match = {title = ".*Shell conflicts.*" },                    float = true})
-hl.window_rule({match = {class = "org.freedesktop.impl.portal.desktop.kde" }, float = true})
-hl.window_rule({match = {class = "org.freedesktop.impl.portal.desktop.kde" }, size = {"(monitor_w*0.60)", "(monitor_h*0.65)"} })
+hl.window_rule({match = {class = "org.freedesktop.impl.portal.desktop.kde" },float = true})
+hl.window_rule({match = {class = "org.freedesktop.impl.portal.desktop.kde" },size = {"(monitor_w*0.60)", "(monitor_h*0.65)"} })
 hl.window_rule({match = {class = "^(Zotero)$" },                             float = true})
 hl.window_rule({match = {class = "^(Zotero)$" },                             size = {"(monitor_w*0.45)", "(monitor_h*0.45)"} })
+
+hl.window_rule({ match = { title = "File Operation Progress" },              float = true, center = true })
+hl.window_rule({match = {title = "Rename .*" },                              float = true, center = true})
 
 -- Move
 -- kde-material-you-colors spawns a window when changing dark/light theme. This is to make sure it doesn't interfere at all.

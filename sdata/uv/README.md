@@ -128,10 +128,10 @@ python3 "$SCRIPT_DIR/generate_colors_material.py" "${generate_colors_material_ar
 ```
 
 For running a python script provided by python package,
-take `kde-material-you-colors` as example:
+don't take `kde-material-you-colors` as example, I've removed it :)
 ```bash
 source "$(eval echo $ILLOGICAL_IMPULSE_VIRTUAL_ENV)/bin/activate"
-kde-material-you-colors "$mode_flag" --color "$color" -sv "$sv_num"
+# kde-material-you-colors "$mode_flag" --color "$color" -sv "$sv_num"
 deactivate
 ```
 

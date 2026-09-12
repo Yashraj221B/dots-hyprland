@@ -10,6 +10,8 @@ RippleButton {
     property string buttonText
     property bool keyboardDown: false
     property real size: 120
+    property string keybind
+    
 
     buttonRadius: (button.focus || button.down) ? size / 2 : Appearance.rounding.verylarge
     colBackground: button.keyboardDown ? Appearance.colors.colSecondaryContainerActive : 
@@ -42,13 +44,36 @@ RippleButton {
         }
     }
 
-    contentItem: MaterialSymbol {
-        id: icon
+    // contentItem: MaterialSymbol {
+    //     id: icon
+    //     anchors.fill: parent
+    //     color: button.colText
+    //     horizontalAlignment: Text.AlignHCenter
+    //     iconSize: 45
+    //     text: buttonIcon
+    // }
+    contentItem: ColumnLayout {
         anchors.fill: parent
-        color: button.colText
-        horizontalAlignment: Text.AlignHCenter
-        iconSize: 45
-        text: buttonIcon
+        anchors.margins: 12
+        spacing: 0
+
+        MaterialSymbol {
+            id: icon
+            Layout.alignment: Qt.AlignHCenter
+            color: button.colText
+            horizontalAlignment: Text.AlignHCenter
+            iconSize: 45
+            text: buttonIcon
+        }
+
+        Text {
+            id: label
+            Layout.alignment: Qt.AlignHCenter
+            color: button.colText
+            font.pixelSize: 14
+            horizontalAlignment: Text.AlignHCenter
+            text: keybind
+        }
     }
 
     StyledToolTip {

@@ -70,10 +70,47 @@ Scope {
                 spacing: 15
 
                 Keys.onPressed: event => {
-                    if (event.key === Qt.Key_Escape) {
+                switch (event.key){
+                    case Qt.Key_Escape:
                         sessionRoot.hide();
-                    }
+                        event.accepted = true;
+                        break;
+                    case Qt.Key_L:
+                        sessionLock.focus = true;
+                        event.accepted = true;
+                        break;
+                    case Qt.Key_S:
+                        sessionShutdown.focus = true;
+                        event.accepted = true;
+                        break;
+                    case Qt.Key_O:
+                        sessionLogout.focus = true;
+                        event.accepted = true;
+                        break;
+                    case Qt.Key_P:
+                        sessionSleep.focus = true;
+                        event.accepted = true;
+                        break;
+                    case Qt.Key_H:
+                        sessionHibernate.focus = true;
+                        event.accepted = true;
+                        break;
+                    case Qt.Key_T:
+                        sessionTaskManager.focus = true;
+                        event.accepted = true;
+                        break;
+                    case Qt.Key_R:
+                        sessionReboot.focus = true;
+                        event.accepted = true;
+                        break;
+                    case Qt.Key_F:
+                        sessionFirmwareReboot.focus = true;
+                        event.accepted = true;
+                        break;
+                    default:
+                        break;
                 }
+            }
 
                 ColumnLayout {
                     Layout.alignment: Qt.AlignHCenter
@@ -109,6 +146,7 @@ Scope {
                         focus: sessionRoot.visible
                         buttonIcon: "lock"
                         buttonText: Translation.tr("Lock")
+                        keybind: "L"
                         onClicked: {
                             Session.lock();
                             sessionRoot.hide();
@@ -124,6 +162,7 @@ Scope {
                         id: sessionSleep
                         buttonIcon: "dark_mode"
                         buttonText: Translation.tr("Sleep")
+                        keybind: "P"
                         onClicked: {
                             Session.suspend();
                             sessionRoot.hide();
@@ -140,6 +179,7 @@ Scope {
                         id: sessionLogout
                         buttonIcon: "logout"
                         buttonText: Translation.tr("Logout")
+                        keybind: "O"
                         onClicked: {
                             Session.logout();
                             sessionRoot.hide();
@@ -156,6 +196,7 @@ Scope {
                         id: sessionTaskManager
                         buttonIcon: "browse_activity"
                         buttonText: Translation.tr("Task Manager")
+                        keybind: "T"
                         onClicked: {
                             Session.launchTaskManager();
                             sessionRoot.hide();
@@ -172,6 +213,7 @@ Scope {
                         id: sessionHibernate
                         buttonIcon: "downloading"
                         buttonText: Translation.tr("Hibernate")
+                        keybind: "H"
                         onClicked: {
                             Session.hibernate();
                             sessionRoot.hide();
@@ -187,6 +229,7 @@ Scope {
                         id: sessionShutdown
                         buttonIcon: "power_settings_new"
                         buttonText: Translation.tr("Shutdown")
+                        keybind: "S"
                         onClicked: {
                             Session.poweroff();
                             sessionRoot.hide();
@@ -203,6 +246,7 @@ Scope {
                         id: sessionReboot
                         buttonIcon: "restart_alt"
                         buttonText: Translation.tr("Reboot")
+                        keybind: "R"
                         onClicked: {
                             Session.reboot();
                             sessionRoot.hide();
@@ -219,6 +263,7 @@ Scope {
                         id: sessionFirmwareReboot
                         buttonIcon: "settings_applications"
                         buttonText: Translation.tr("Reboot to firmware settings")
+                        keybind: "F"
                         onClicked: {
                             Session.rebootToFirmware();
                             sessionRoot.hide();
